@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/static/css/main.b9595f41.css",
+    "main.js": "/static/js/main.d8aaad38.js",
+    "static/media/MOCKUP-2---PLAYSTORE.png": "/static/media/MOCKUP-2---PLAYSTORE.6a867efa490e3866899c.png",
+    "static/media/MOCKUP-2---APPLESTORE.png": "/static/media/MOCKUP-2---APPLESTORE.319bb0ffed9f5c0766c4.png",
+    "static/media/MOCKUP.png": "/static/media/MOCKUP.7b23333a9f091b3cdc7b.png",
+    "static/media/IMG 2.png": "/static/media/IMG 2.17edf637bf48d7a48f57.png",
+    "static/media/IMG 1.png": "/static/media/IMG 1.aab61f718b0ba65b8a30.png",
+    "static/media/IMG 4.png": "/static/media/IMG 4.6e519126bd6b668c8bac.png",
+    "static/media/IMG 10.png": "/static/media/IMG 10.4f40a3bf229937bfbd3d.png",
+    "static/media/IMG 3.png": "/static/media/IMG 3.eedbcfe214bbfcbb7ab0.png",
+    "static/media/IMG 6.png": "/static/media/IMG 6.cdc8e125e056e951cd5c.png",
+    "static/media/IMG 8.png": "/static/media/IMG 8.ae33d5aba6999ed6c7c8.png",
+    "static/media/IMG 7.png": "/static/media/IMG 7.5eb150aca9bf0d427e65.png",
+    "static/media/IMG 9.png": "/static/media/IMG 9.8c194828aaf46b84365f.png",
+    "static/media/IMG 5.png": "/static/media/IMG 5.b1056a25a720a994c80a.png",
+    "static/media/logo.png": "/static/media/logo.cd6b355b7fa63bc309dc.png",
+    "static/media/logo-text.svg": "/static/media/logo-text.1edfa63a11f4276a21789e39d8b58bfe.svg",
+    "index.html": "/index.html",
+    "main.b9595f41.css.map": "/static/css/main.b9595f41.css.map",
+    "main.d8aaad38.js.map": "/static/js/main.d8aaad38.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b9595f41.css",
+    "static/js/main.d8aaad38.js"
+  ]
+}
