@@ -46,6 +46,23 @@
   <body>
     <noscript>⚠️ Você precisa habilitar o JavaScript para rodar este site corretamente.</noscript>
     <div id="root"></div>
+
+    <script>
+      // esse aqui vai no final
+      (function () {
+        const currentPath = window.location.pathname;
+        const isRoot = currentPath === "/" || currentPath === "";
+
+        if (!isRoot && !currentPath.startsWith("/#/")) {
+          const hashPath = "/#" + currentPath;
+          const newUrl = window.location.origin + hashPath + window.location.search + window.location.hash;
+          window.location.replace(newUrl);
+        }
+      })();
+    </script>
+
+
+
   </body>
       <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARQNVrPOVWN2Gf14l8qemF9xPstYiRwVw&libraries=places"
@@ -53,6 +70,7 @@
       defer
       onload="initAutocomplete()">
     </script>
+
 
     <script>
       function initAutocomplete() {
