@@ -1,6 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function StepDadosPessoais({ formData, onChange, onNext }) {
+  const [erro, setErro] = useState('');
+
+  const validarCampos = () => {
+    if (!formData.nome || !formData.email || !formData.telefone) {
+      setErro('Por favor, preencha todos os campos obrigatórios.');
+      return;
+    }
+
+    setErro('');
+    onNext();
+  };
+
   return (
     <div>
       <h2 className="modal-title">Dados Pessoais</h2>
@@ -9,30 +21,33 @@ export default function StepDadosPessoais({ formData, onChange, onNext }) {
       <input
         type="text"
         name="nome"
-        placeholder="Nome completo"
+        placeholder="Nome completo *"
         value={formData.nome}
         onChange={onChange}
-        required
       />
       <input
         type="email"
         name="email"
-        placeholder="E-mail"
+        placeholder="E-mail *"
         value={formData.email}
         onChange={onChange}
-        required
       />
       <input
         type="tel"
         name="telefone"
-        placeholder="Telefone"
+        placeholder="Telefone *"
         value={formData.telefone}
         onChange={onChange}
-        required
       />
 
+      {erro && (
+        <p style={{ color: 'red', fontSize: '0.9rem', marginTop: '0.5rem' }}>
+          ⚠️ {erro}
+        </p>
+      )}
+
       <div className="modal-footer">
-        <button className="btn-primary" onClick={onNext}>
+        <button className="btn-primary" onClick={validarCampos}>
           Próximo
         </button>
       </div>

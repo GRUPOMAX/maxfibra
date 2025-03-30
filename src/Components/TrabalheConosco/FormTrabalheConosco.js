@@ -86,7 +86,7 @@ export default function FormTrabalheConosco({ onClose }) {
         <img src={LogoText} alt="Logo" style={{ height: '5rem' }} />
       </div>
 
-      <h1 style={{ fontSize: '1.5rem', fontWeight: '700', margin: '1rem 0' }}>Ficha de Cadastro</h1>
+      <h1 style={{ fontSize: '1.5rem', fontWeight: '700', margin: '1rem 0' }}>Trabalhe Conosco</h1>
 
       <div className="modal-body">
         {steps[step]}

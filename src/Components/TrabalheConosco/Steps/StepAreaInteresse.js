@@ -21,12 +21,14 @@ export default function StepAreaInteresse({ formData, onChange, onNext, onBack }
         }}
       >
         <option value="">Selecione uma área</option>
+        <option value="Desenvolvimento">Desenvolvedor</option>
         <option value="Atendimento">Atendimento</option>
         <option value="Técnico de Campo">Técnico de Campo</option>
         <option value="Instalações">Instalações</option>
         <option value="Vendas">Vendas</option>
         <option value="Marketing">Marketing</option>
         <option value="Administrativo">Administrativo</option>
+        <option value="Banco de Talentos">Banco de Talentos</option>
       </select>
 
       <div className="modal-footer">
