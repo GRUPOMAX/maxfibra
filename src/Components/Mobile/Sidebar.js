@@ -39,11 +39,6 @@ function Sidebar({ isOpen, toggleSidebar }) {
           </Link>
         </li>
         <li>
-          <Link to="/sobre" className={location.pathname === "/sobre" ? "active" : ""}>
-            Sobre Nós
-          </Link>
-        </li>
-        <li>
           <Link to="/empresas" className={location.pathname === "/empresas" ? "active" : ""}>
             Empresas
           </Link>
@@ -71,3 +66,17 @@ function Sidebar({ isOpen, toggleSidebar }) {
 }
 
 export default Sidebar;
+/*
+
+Não utilizado no momomento
+
+        <li>
+          <Link to="/sobre" className={location.pathname === "/sobre" ? "active" : ""}>
+            Sobre Nós
+          </Link>
+        </li>
+
+
+
+
+*/

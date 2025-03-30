@@ -1,0 +1,229 @@
+.modal {
+  width: 95%;
+  max-width: 500px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding: 2rem;
+  position: relative;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo-circle {
+  width: 3rem;
+  height: 3rem;
+  background: #f3f0ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #09c509;
+}
+
+.btn-close {
+  background: #eee;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.3rem 0.8rem;
+  transition: background 0.3s;
+}
+
+.btn-close:hover {
+  background: #ddd;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 1.5rem;
+}
+
+.modal-description {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input:not([type="checkbox"]),
+textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  background: #f9f9f9;
+  transition: border-color 0.3s;
+}
+
+
+
+input:focus,
+textarea:focus {
+  border-color: #01d61e;
+  outline: none;
+  background: #fff;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 0.6rem 1.2rem;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background-color: #04cc0e;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #079902;
+}
+
+.btn-secondary {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.btn-secondary:hover {
+  background-color: #e0e0e0;
+}
+
+/* Upload área */
+
+.upload-area {
+  width: 100%;
+  border: 2px dashed #ccc;
+  padding: 2rem 1rem;
+  text-align: center;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  background: #fafcfa;
+  position: relative;
+}
+
+.upload-area:hover {
+  border-color: #4eff5d;
+  background-color: #e4fde4;
+}
+
+.upload-area-icon {
+  width: 2.2rem;
+  height: 2.2rem;
+  fill: #0ad33c;
+  margin: 0 auto 0.75rem;
+}
+
+.upload-area-title {
+  display: block;
+  font-weight: 600;
+  color: #333;
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+}
+
+.upload-area-description {
+  color: #777;
+  font-size: 0.9rem;
+}
+
+.upload-area-description strong {
+  color: #0bdf16;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.upload-area p {
+  margin-top: 1rem;
+  font-weight: 600;
+  color: #1cc972;
+  font-size: 0.9rem;
+  word-break: break-all;
+}
+
+
+
+/* Evita que o foco azul apareça só nesse componente */
+/* Para estilizar somente o Select deste formulário */
+.area-estudo-trabalhe__control {
+  box-shadow: none !important;
+}
+
+
+
+.formacao-checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 17.5rem;
+  margin: 1rem 0;
+  white-space: nowrap; /* Impede quebra de linha */
+}
+
+
+.formacao-checkbox {
+  transform: scale(1.2);
+  cursor: pointer;
+  margin: 0;
+}
+
+.formacao-label {
+  font-weight: 500;
+  cursor: pointer;
+  margin: 0;
+}
+
+.input-form {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  background: #f9f9f9;
+}
+.input-form:focus {
+  border-color: #05ce31;
+  outline: none;
+  background: #fff;
+}
+
+
+@media (max-width: 480px) {
+  .formacao-checkbox-wrapper {
+    display: flex;
+    gap: 7rem;
+    flex-wrap: nowrap; /* garante que checkbox e texto fiquem lado a lado */
+    white-space: nowrap;
+    align-items: center;
+  }
+}
+
+

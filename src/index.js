@@ -6,6 +6,7 @@ import Home from "./Pages/Home";
 import LoadingScreen from "./Components/LoadingScreen";
 import Cadastro from "./Pages/Cadastro";
 import Empresas from "./Pages/Empresas";
+import PageTrabalheConosco from "./Pages/PageTrabalheConosco";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -23,6 +24,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/cadastro" element={<Cadastro />} />
           <Route path="/empresas" element={<Empresas />} />
+          <Route path="/trabalhe-conosco" element={<PageTrabalheConosco />} />
           {/* Redireciona para home se a rota não existir */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>

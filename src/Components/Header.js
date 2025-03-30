@@ -15,13 +15,12 @@ function Header() {
           <li><Link to="/">Início</Link></li>
           <li><Link to="/cadastro">Cadastre-se</Link></li>
           <li><Link to="/empresas">Empresas</Link></li>
-          <li><a href="#sobre-nos">Sobre Nós</a></li>
-          <li><a href="#trabalhe-conosco">Trabalhe Conosco</a></li>
+          <li><Link to="/trabalhe-conosco">Trabalhe Conosco</Link></li>
         </ul>
       </nav>
       <Button text="Acessar Central" href="https://ixc.maxfibraltda.com.br/" />
     </header>
   );
 }
-
+//          <li><a href="#sobre-nos">Sobre Nós</a></li>
 export default Header;
