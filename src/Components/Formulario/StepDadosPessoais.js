@@ -240,7 +240,7 @@ const StepDadosPessoais = ({ nextStep, updateFormData, formData, isMobile }) => 
       {/* Divisão dos campos CPF & RG */}
       <div className={`input-duplo ${isMobile ? "coluna" : ""}`}>
         <div>
-          <label>{tipoDocumento === "CNPJ" ? "CNPJ *" : "CPF *"}</label>
+          <label>{tipoDocumento === "CNPJ" ? "CNPJ *" : "CPF ou CNPJ"}</label>
           <input
             type="text"
             value={formData.cpf}
