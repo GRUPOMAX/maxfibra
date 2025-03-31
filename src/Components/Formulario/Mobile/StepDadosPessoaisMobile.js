@@ -23,7 +23,6 @@ const StepDadosPessoaisMobile = ({ nextStep, updateFormData, formData }) => {
       ? formData.nome?.trim() &&
         formData.cpf?.trim() &&
         formData.ie?.trim() &&
-        formData.nomeFantasia?.trim() &&
         formData.responsavel?.trim() &&
         formData.cpfResponsavel?.trim() &&
         formData.dataNascimentoResponsavel?.trim()
@@ -139,7 +138,7 @@ const StepDadosPessoaisMobile = ({ nextStep, updateFormData, formData }) => {
       <label>{tipoDocumento === "CNPJ" ? "Razão Social *" : "Nome Completo *"}</label>
       <input type="text" value={formData.nome} onChange={(e) => updateFormData({ nome: e.target.value })} required />
 
-      <label>{tipoDocumento === "CNPJ" ? "CNPJ *" : "CPF *"}</label>
+      <label>{tipoDocumento === "CNPJ" ? "CNPJ *" : "CPF ou CNPJ"}</label>
       <input type="text" value={formData.cpf} onChange={handleCPFChange} required placeholder={tipoDocumento === "CNPJ" ? "00.000.000/0000-00" : "000.000.000-00"} maxLength="18" className={cpfValido ? "" : "input-invalido"} />
       {!cpfValido && <span className="erro-cpf">CPF inválido!</span>}
       {!cnpjValido && tipoDocumento === "CNPJ" && <span className="erro-cpf">CNPJ inválido!</span>}
@@ -149,7 +148,7 @@ const StepDadosPessoaisMobile = ({ nextStep, updateFormData, formData }) => {
           <label>RG *</label>
           <input type="text" value={formData.rg} onChange={(e) => updateFormData({ rg: e.target.value })} required />
 
-          <div className="data-nascimento-container">
+          <div className="data-nascimento-container1">
             <label>Data de Nascimento</label>
             <span className="alternar-modo" onClick={() => setIsTextInput(!isTextInput)}>
               {isTextInput ? "Selecionar" : "Digitar"}
@@ -182,15 +181,13 @@ const StepDadosPessoaisMobile = ({ nextStep, updateFormData, formData }) => {
                 onChange={(e) => updateFormData({ dataAberturaEmpresa: e.target.value })}
               />
             </div>
-          <label>Nome Fantasia</label>
-          <input type="text" value={formData.nomeFantasia} onChange={(e) => updateFormData({ nomeFantasia: e.target.value })} />
           <label>Responsável Legal</label>
           <input type="text" value={formData.responsavel} onChange={(e) => updateFormData({ responsavel: e.target.value })} />
           <label>CPF do Responsável</label>
           <input type="text" value={formData.cpfResponsavel} onChange={handleCPFResponsavelChange} placeholder="000.000.000-00" maxLength="14" className={cpfResponsavelValido ? "" : "input-invalido"} />
           {!cpfResponsavelValido && <span className="erro-cpf">CPF do responsável inválido!</span>}
           <label>Data de Nascimento do Responsável</label>
-          <input type="date" value={formData.dataNascimentoResponsavel} onChange={(e) => updateFormData({ dataNascimentoResponsavel: e.target.value })} />
+          <input className="date" type="date" value={formData.dataNascimentoResponsavel} onChange={(e) => updateFormData({ dataNascimentoResponsavel: e.target.value })} />
         </>
       )}
 

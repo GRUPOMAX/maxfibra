@@ -25,7 +25,6 @@ const StepDadosPessoais = ({ nextStep, updateFormData, formData, isMobile }) => 
       ? formData.nome?.trim() &&
         formData.cpf?.trim() &&
         formData.ie?.trim() &&
-        formData.nomeFantasia?.trim() &&
         formData.responsavel?.trim() &&
         formData.cpfResponsavel?.trim() &&
         formData.dataNascimentoResponsavel?.trim()
@@ -166,22 +165,24 @@ const StepDadosPessoais = ({ nextStep, updateFormData, formData, isMobile }) => 
     const isCNPJ = input.length > 11;
   
     let formatted;
+  
     if (isCNPJ) {
       setTipoDocumento("CNPJ");
       formatted = formatarCNPJ(input);
-      setCpfValido(true);
+      const valido = validarCNPJ(input); // 🔥 valida o CNPJ bruto
+      setCnpjValido(valido);
+      setCpfValido(true); // limpa a outra validação
       updateFormData({ cpf: formatted, tipoDocumento: "CNPJ" });
     } else {
       setTipoDocumento("CPF");
       formatted = formatarCPF(input);
       const valido = validarCPF(formatted);
       setCpfValido(valido);
+      setCnpjValido(true); // limpa a outra validação
       updateFormData({ cpf: formatted, tipoDocumento: "CPF" });
     }
-    
-  
-    updateFormData({ cpf: formatted });
   };
+  
   
   
   
@@ -290,33 +291,30 @@ const StepDadosPessoais = ({ nextStep, updateFormData, formData, isMobile }) => 
 
       {tipoDocumento === "CNPJ" && (
         <>
-          <div>
-            <label>IE (Inscrição Estadual)</label>
-            <input
-              type="text"
-              value={formData.ie}
-              onChange={(e) => updateFormData({ ie: e.target.value })}
-            />
+
+        <div className={`input-duplo ${isMobile ? "coluna" : ""}`}>
+                  <div>
+                    <label>Data de Abertura da Empresa</label>
+                    <input
+                      type="date"
+                      value={formData.dataAberturaEmpresa || ""}
+                      onChange={(e) => updateFormData({ dataAberturaEmpresa: e.target.value })}
+                    />
+                  </div>
+
+
+                  <div>
+                        <label>IE (Inscrição Estadual)</label>
+                        <input
+                            type="text"
+                            value={formData.ie}
+                            onChange={(e) => updateFormData({ ie: e.target.value })}               
+                          />
+
+
+                      </div>
+
           </div>
-          <div>
-              <label>Data de Abertura da Empresa</label>
-              <input
-                type="date"
-                value={formData.dataAberturaEmpresa || ""}
-                onChange={(e) => updateFormData({ dataAberturaEmpresa: e.target.value })}
-              />
-            </div>
-
-
-          <div>
-            <label>Nome Fantasia</label>
-            <input
-              type="text"
-              value={formData.nomeFantasia}
-              onChange={(e) => updateFormData({ nomeFantasia: e.target.value })}
-            />
-          </div>
-
           <div>
             <label>Responsável Legal</label>
             <input

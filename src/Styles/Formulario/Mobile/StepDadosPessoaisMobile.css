@@ -3,20 +3,24 @@
 
 @media screen and (max-width: 768px) {
 select,input[type="date"] {
-  appearance: none;
-  background-color: #fff;
-  border: 1px solid #ccc;
+  appearance: none !important;
+  background-color: #fff !important;
+  border: 1px solid #ccc !important;
   border-radius: 5px;
-  padding: 10px;
+  padding: 10px !important;
   font-size: 16px;
   width: 100%;
   min-height: 1.2em;
+  margin-bottom: 0 !important;
 }
+
+
 
 input[type='date']{
   -webkit-appearance: none !important;
   -moz-appearance: none !important;
   display:-webkit-flex !important;
+  margin-bottom: 0 !important;
 }
 
 /* Simula o placeholder quando o campo está vazio */
@@ -32,17 +36,17 @@ input[type="date"].has-value::before {
 }
 
 
-.data-nascimento-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+.data-nascimento-container1 {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100% !important;
 }
 
 .alternar-modo {
-  color: green;
-  font-weight: bold;
-  cursor: pointer;
+  color: green !important;
+  font-weight: bold !important;
+  cursor: pointer !important;
 }
 
 /* Adicionar um ícone de seta no select manualmente */
