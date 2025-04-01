@@ -39,78 +39,137 @@ const StepDadosPessoaisMobile = ({ nextStep, updateFormData, formData }) => {
     );
   }, [formData, cpfValido, cnpjValido, cpfResponsavelValido, tipoDocumento]);
 
+  const formatarCNPJ = (valor) => {
+    let cnpj = valor.replace(/\D/g, "");
+    if (cnpj.length > 14) cnpj = cnpj.slice(0, 14);
+  
+    return cnpj
+      .replace(/^(\d{2})(\d)/, "$1.$2")
+      .replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3")
+      .replace(/\.(\d{3})(\d)/, ".$1/$2")
+      .replace(/(\d{4})(\d)/, "$1-$2");
+  };
+  
+
+
+  // 🔥 Função para formatar o CPF automaticamente
   const formatarCPF = (valor) => {
-    let cpf = valor.replace(/\D/g, "");
-    if (cpf.length > 11) cpf = cpf.slice(0, 11);
-    return cpf.replace(/(\d{3})(\d)/, "$1.$2")
-              .replace(/(\d{3})(\d)/, "$1.$2")
-              .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+    let cpf = valor.replace(/\D/g, ""); // Remove tudo que não for número
+    //if (cpf.length > 11) cpf = cpf.slice(0, 11); // Limita a 11 dígitos
+
+    if (cpf.length <= 3) return cpf;
+    if (cpf.length <= 6) return `${cpf.slice(0, 3)}.${cpf.slice(3)}`;
+    if (cpf.length <= 9) return `${cpf.slice(0, 3)}.${cpf.slice(3, 6)}.${cpf.slice(6)}`;
+    return `${cpf.slice(0, 3)}.${cpf.slice(3, 6)}.${cpf.slice(6, 9)}-${cpf.slice(9, 11)}`;
   };
 
+  const validarRG = (rg) => {
+    if (!rg) return false;
+  
+    // Remove tudo que não for número ou 'X'
+    const rgLimpo = rg.replace(/[^\dXx]/g, "").toUpperCase();
+  
+    // Tem que ter 9 dígitos
+    if (rgLimpo.length !== 9) return false;
+  
+    const corpo = rgLimpo.slice(0, 8);
+    const digito = rgLimpo.slice(8);
+  
+    let soma = 0;
+    let peso = 2;
+  
+    for (let i = 7; i >= 0; i--) {
+      soma += parseInt(corpo[i]) * peso;
+      peso++;
+    }
+  
+    let resto = soma % 11;
+    let dvCalculado;
+  
+    if (resto === 10) {
+      dvCalculado = 'X';
+    } else if (resto === 11 || resto === 0) {
+      dvCalculado = '0';
+    } else {
+      dvCalculado = String(resto);
+    }
+  
+    return dvCalculado === digito;
+  };
+
+  const validarCNPJ = (cnpj) => {
+    cnpj = cnpj.replace(/[^\d]+/g, '');
+  
+    if (!cnpj || cnpj.length !== 14 || /^(\d)\1+$/.test(cnpj)) return false;
+  
+    let tamanho = cnpj.length - 2;
+    let numeros = cnpj.substring(0, tamanho);
+    const digitos = cnpj.substring(tamanho);
+    let soma = 0;
+    let pos = tamanho - 7;
+  
+    for (let i = tamanho; i >= 1; i--) {
+      soma += parseInt(numeros.charAt(tamanho - i)) * pos--;
+      if (pos < 2) pos = 9;
+    }
+  
+    let resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
+    if (resultado !== parseInt(digitos.charAt(0))) return false;
+  
+    tamanho = tamanho + 1;
+    numeros = cnpj.substring(0, tamanho);
+    soma = 0;
+    pos = tamanho - 7;
+  
+    for (let i = tamanho; i >= 1; i--) {
+      soma += parseInt(numeros.charAt(tamanho - i)) * pos--;
+      if (pos < 2) pos = 9;
+    }
+  
+    resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
+    return resultado === parseInt(digitos.charAt(1));
+  };
+  
+
+
+  // 🔥 Função para validar CPF (algoritmo oficial)
   const validarCPF = (cpf) => {
-    cpf = cpf.replace(/\D/g, "");
-    if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
+    cpf = cpf.replace(/\D/g, ""); // Remove não números
+    if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false; // Verifica se todos os dígitos são iguais (ex: 111.111.111-11)
+
     let soma = 0, resto;
     for (let i = 1; i <= 9; i++) soma += parseInt(cpf[i - 1]) * (11 - i);
     resto = (soma * 10) % 11;
     if (resto === 10 || resto === 11) resto = 0;
     if (resto !== parseInt(cpf[9])) return false;
+
     soma = 0;
     for (let i = 1; i <= 10; i++) soma += parseInt(cpf[i - 1]) * (12 - i);
     resto = (soma * 10) % 11;
+    if (resto === 10 || resto === 11) resto = 0;
     return resto === parseInt(cpf[10]);
   };
 
-  const validarCNPJ = (cnpj) => {
-    cnpj = cnpj.replace(/[^\d]+/g, "");
-    if (!cnpj || cnpj.length !== 14 || /^(\d)\1+$/.test(cnpj)) return false;
-    let tamanho = cnpj.length - 2;
-    let numeros = cnpj.substring(0, tamanho);
-    const digitos = cnpj.substring(tamanho);
-    let soma = 0, pos = tamanho - 7;
-    for (let i = tamanho; i >= 1; i--) {
-      soma += parseInt(numeros.charAt(tamanho - i)) * pos--;
-      if (pos < 2) pos = 9;
-    }
-    let resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
-    if (resultado !== parseInt(digitos.charAt(0))) return false;
-    tamanho++;
-    numeros = cnpj.substring(0, tamanho);
-    soma = 0;
-    pos = tamanho - 7;
-    for (let i = tamanho; i >= 1; i--) {
-      soma += parseInt(numeros.charAt(tamanho - i)) * pos--;
-      if (pos < 2) pos = 9;
-    }
-    resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
-    return resultado === parseInt(digitos.charAt(1));
-  };
-
-  const formatarCNPJ = (valor) => {
-    let cnpj = valor.replace(/\D/g, "");
-    if (cnpj.length > 14) cnpj = cnpj.slice(0, 14);
-    return cnpj.replace(/^(\d{2})(\d)/, "$1.$2")
-               .replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3")
-               .replace(/\.(\d{3})(\d)/, ".$1/$2")
-               .replace(/(\d{4})(\d)/, "$1-$2");
-  };
-
+  // 🔥 Quando o usuário digita, formata e valida o CPF
   const handleCPFChange = (e) => {
     const input = e.target.value.replace(/\D/g, "");
     const isCNPJ = input.length > 11;
+  
     let formatted;
+  
     if (isCNPJ) {
       setTipoDocumento("CNPJ");
       formatted = formatarCNPJ(input);
-      setCpfValido(true);
-      const valido = validarCNPJ(input);
+      const valido = validarCNPJ(input); // 🔥 valida o CNPJ bruto
       setCnpjValido(valido);
+      setCpfValido(true); // limpa a outra validação
       updateFormData({ cpf: formatted, tipoDocumento: "CNPJ" });
     } else {
       setTipoDocumento("CPF");
       formatted = formatarCPF(input);
       const valido = validarCPF(formatted);
       setCpfValido(valido);
+      setCnpjValido(true); // limpa a outra validação
       updateFormData({ cpf: formatted, tipoDocumento: "CPF" });
     }
   };
@@ -131,6 +190,11 @@ const StepDadosPessoaisMobile = ({ nextStep, updateFormData, formData }) => {
     setDataNascimento(valor);
     updateFormData({ dataNascimento: valor });
   };
+
+
+
+
+
 
   return (
     <div className="step-container-mobile">

@@ -282,6 +282,7 @@ const StepDadosPessoais = ({ nextStep, updateFormData, formData, isMobile }) => 
           <label>Data de Nascimento *</label>
           <input
             type="date"
+            lang="pt-BR"
             value={formData.dataNascimento}
             onChange={(e) => updateFormData({ dataNascimento: e.target.value })}
             required
@@ -297,6 +298,7 @@ const StepDadosPessoais = ({ nextStep, updateFormData, formData, isMobile }) => 
                     <label>Data de Abertura da Empresa</label>
                     <input
                       type="date"
+                      lang="pt-BR"
                       value={formData.dataAberturaEmpresa || ""}
                       onChange={(e) => updateFormData({ dataAberturaEmpresa: e.target.value })}
                     />
