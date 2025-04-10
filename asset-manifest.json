@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.2e5788cd.css",
-    "main.js": "/static/js/main.85ef0411.js",
+    "main.js": "/static/js/main.991b6d80.js",
     "static/media/MOCKUP-2---PLAYSTORE.png": "/static/media/MOCKUP-2---PLAYSTORE.6a867efa490e3866899c.png",
     "static/media/MOCKUP-2---APPLESTORE.png": "/static/media/MOCKUP-2---APPLESTORE.319bb0ffed9f5c0766c4.png",
     "static/media/MOCKUP.png": "/static/media/MOCKUP.7b23333a9f091b3cdc7b.png",
@@ -16,13 +16,13 @@
     "static/media/IMG 9.png": "/static/media/IMG 9.8c194828aaf46b84365f.png",
     "static/media/IMG 5.png": "/static/media/IMG 5.b1056a25a720a994c80a.png",
     "static/media/logo.png": "/static/media/logo.cd6b355b7fa63bc309dc.png",
-    "static/media/logo-text.svg": "/static/media/logo-text.0449e11c3cd8171e40e713b165f7ac73.svg",
+    "static/media/logo-text.svg": "/static/media/logo-text.1edfa63a11f4276a21789e39d8b58bfe.svg",
     "index.html": "/index.html",
     "main.2e5788cd.css.map": "/static/css/main.2e5788cd.css.map",
-    "main.85ef0411.js.map": "/static/js/main.85ef0411.js.map"
+    "main.991b6d80.js.map": "/static/js/main.991b6d80.js.map"
   },
   "entrypoints": [
     "static/css/main.2e5788cd.css",
-    "static/js/main.85ef0411.js"
+    "static/js/main.991b6d80.js"
   ]
 }
