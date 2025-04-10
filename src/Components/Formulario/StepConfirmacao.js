@@ -7,7 +7,8 @@ import ModalConfirmacao from "./ModalConfirmacao"; // ajuste o caminho se necess
 import WebhookService from "../../Services/WebhookService"; // 👈 novo service
 
 
-const StepConfirmacao = ({ prevStep, formData }) => {
+const StepConfirmacao = ({ prevStep, formData, setFormData }) => {
+
   const [loading, setLoading] = useState(false); // 🔥 Estado de loading
   const [activeCard, setActiveCard] = useState("dadosPessoais");
   const [mostrarModal, setMostrarModal] = useState(false);
@@ -71,6 +72,9 @@ const StepConfirmacao = ({ prevStep, formData }) => {
   
       setProtocoloGerado(response.protocolo);
       setMostrarModal(true);
+      setFormData({});
+
+      
     } catch (error) {
       console.error("❌ Erro ao enviar formulário:", error);
       alert("❌ Erro ao enviar o cadastro. Tente novamente.");
@@ -179,7 +183,7 @@ const StepConfirmacao = ({ prevStep, formData }) => {
         <button 
           className="finalizar-mobile" 
           onClick={handleSubmit} 
-          disabled={loading} // 🔥 Desativa botão enquanto está carregando
+          disabled={loading || Object.keys(formData).length === 0}
         >
           {loading ? "Enviando..." : "Finalizar Cadastro"}
         </button>

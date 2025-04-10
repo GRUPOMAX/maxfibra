@@ -7,7 +7,7 @@ import FormularioService from "../../../Services/FormularioService"; // 🔥 Imp
 import ModalConfirmacao from "../ModalConfirmacao"; // ajuste o caminho se necessário
 import WebhookService from "../../../Services/WebhookService"; // 👈 novo service
 
-const StepConfirmacaoMobile = ({ prevStep, formData }) => {
+const StepConfirmacaoMobile = ({ prevStep, formData, setFormData  }) => {
   const [expandedSection, setExpandedSection] = useState(null);
   const [loading, setLoading] = useState(false); // 🔥 Estado de loading
     const [mostrarModal, setMostrarModal] = useState(false);
@@ -26,58 +26,53 @@ const StepConfirmacaoMobile = ({ prevStep, formData }) => {
   
   const handleSubmit = async () => {
     setLoading(true);
-
-    // 🚀 Garante que o email do vendedor também seja enviado
+  
     if (!formData.vendedor || !formData.vendedorEmail) {
       alert("Erro: O vendedor e o e-mail do vendedor são obrigatórios!");
       setLoading(false);
       return;
     }
-
-    // 🚀 Corrige e garante que os campos essenciais estão preenchidos corretamente
+  
     const dadosCorrigidos = {
       ...formData,
-      endereco: formData.endereco?.trim() || formData.rua?.trim() || "", // Se rua estiver vazia, evitar erro
-      rua: formData.rua?.trim() || formData.endereco?.trim() || "", // Garante que rua sempre tenha valor
-      telefone1: formData.telefone1?.trim() || "N/A", // Evita undefined ou string vazia
-      telefone3: formData.telefone3?.trim() || "", // Garante que telefone3 seja enviado, mesmo se vazio
-      latitude: formData.latitude ? String(formData.latitude) : "", // Converte para string se existir
-      longitude: formData.longitude ? String(formData.longitude) : "", // Converte para string se existir
-      vendedorEmail: formData.vendedorEmail, // ✅ Inclui o e-mail do vendedor
+      endereco: formData.endereco?.trim() || formData.rua?.trim() || "",
+      rua: formData.rua?.trim() || formData.endereco?.trim() || "",
+      telefone1: formData.telefone1?.trim() || "N/A",
+      telefone3: formData.telefone3?.trim() || "",
+      latitude: formData.latitude ? String(formData.latitude) : "",
+      longitude: formData.longitude ? String(formData.longitude) : "",
+      vendedorEmail: formData.vendedorEmail,
     };
-
-    // 🔍 Remove espaços extras dos campos string
+  
     Object.keys(dadosCorrigidos).forEach((key) => {
       if (typeof dadosCorrigidos[key] === "string") {
         dadosCorrigidos[key] = dadosCorrigidos[key].trim();
       }
     });
-
-    // 🔍 Depuração: Verifica os dados antes de enviar
-    //console.log("📤 Dados corrigidos enviados:", JSON.stringify(dadosCorrigidos, null, 2));
-
-    // 🚨 Verificação de campos obrigatórios
-    const camposObrigatorios = ["nome", "cpf", "telefone1", "email", "cidade", "bairro", "rua", "cep", "numero", "vendedor", "vendedorEmail"];
+  
+    const camposObrigatorios = [
+      "nome", "cpf", "telefone1", "email", 
+      "cidade", "bairro", "rua", "cep", "numero", 
+      "vendedor", "vendedorEmail"
+    ];
     const camposFaltando = camposObrigatorios.filter((campo) => !dadosCorrigidos[campo]);
-
+  
     if (camposFaltando.length > 0) {
-      //console.error("❌ Campos obrigatórios ausentes:", camposFaltando);
       alert(`⚠️ Os seguintes campos estão vazios e são obrigatórios:\n\n${camposFaltando.join("\n")}`);
       setLoading(false);
       return;
     }
-
+  
     try {
       const response = await FormularioService.enviarFormulario(dadosCorrigidos);
-
-
-        // ✅ Envia para o webhook do n8n
+  
+      // ✅ Envia para o webhook do n8n
       await WebhookService.enviarParaWebhook(dadosCorrigidos);
-
-      // ✅ Em vez de alert, exibe o modal
+  
+      // ✅ Mostra o modal de sucesso
       setProtocoloGerado(response.protocolo);
       setMostrarModal(true);
-
+  
     } catch (error) {
       console.error("❌ Erro ao enviar formulário:", error);
       alert("❌ Erro ao enviar o cadastro. Tente novamente.");
@@ -85,6 +80,8 @@ const StepConfirmacaoMobile = ({ prevStep, formData }) => {
       setLoading(false);
     }
   };
+  
+  
 
 
 
@@ -197,18 +194,25 @@ const StepConfirmacaoMobile = ({ prevStep, formData }) => {
         <button 
           className="finalizar-mobile" 
           onClick={handleSubmit} 
-          disabled={loading} // 🔥 Desativa botão enquanto está carregando
+          disabled={loading || Object.keys(formData).length === 0}
         >
           {loading ? "Enviando..." : "Finalizar Cadastro"}
         </button>
       </div>
 
       {mostrarModal && (
-      <ModalConfirmacao
-        protocolo={protocoloGerado}
-        onClose={() => setMostrarModal(false)}
-      />
-    )}
+          <ModalConfirmacao
+            protocolo={protocoloGerado}
+            onClose={() => {
+              setMostrarModal(false);
+              if (typeof setFormData === "function") {
+                setFormData({}); // 🔥 Limpa com segurança ao fechar o Modal
+              }
+            }}
+          />
+        )}
+
+
 
     </div>
   );

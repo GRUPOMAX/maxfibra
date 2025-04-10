@@ -67,8 +67,8 @@ const FormularioMobile = ({
       {step === 2 && <StepContatoMobile nextStep={nextStep} prevStep={prevStep} updateFormData={updateFormData} formData={formData} />}
       {step === 3 && <StepEnderecoMobile nextStep={nextStep} prevStep={prevStep} updateFormData={updateFormData} formData={formData} />}
       {step === 4 && <StepPlanoMobile nextStep={nextStep} prevStep={prevStep} updateFormData={updateFormData} formData={formData} />}
-      {step === 5 && <StepConfirmacaoMobile prevStep={prevStep} formData={formData} />}
-    </div>
+      {step === 5 && <StepConfirmacaoMobile prevStep={prevStep} formData={formData} setFormData={setFormData} />}
+      </div>
   );
 };
 
