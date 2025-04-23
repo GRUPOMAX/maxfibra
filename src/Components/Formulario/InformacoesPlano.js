@@ -19,13 +19,10 @@ const velocidadesPlanos = {
   "Big Company": "200 Mega"
 };
 
-
 const InformacoesPlano = ({ plano, streaming, vencimento, tipoDocumento, desconto = 0 }) => {
   const [planoAtual, setPlanoAtual] = useState(plano);
   const [streamingAtual, setStreamingAtual] = useState(streaming);
   const [vencimentoAtual, setVencimentoAtual] = useState(vencimento);
-
-
 
   useEffect(() => {
     setPlanoAtual(plano);
@@ -39,7 +36,8 @@ const InformacoesPlano = ({ plano, streaming, vencimento, tipoDocumento, descont
     setVencimentoAtual(vencimento);
   }, [vencimento]); // Atualiza sempre que `vencimento` mudar
 
-  const preco = precosPlanos[planoAtual] || "Não disponível";
+  const precoBase = precosPlanos[planoAtual] || 0; // 🔥 Preço base
+  const precoFinal = precoBase * (1 - desconto / 100); // 🔥 Calcula o preço com desconto em porcentagem
   const velocidade = velocidadesPlanos[planoAtual] || "Não informado";
 
   return (
@@ -70,30 +68,28 @@ const InformacoesPlano = ({ plano, streaming, vencimento, tipoDocumento, descont
           </div>
         )}
 
-
         <div className="plano-item">
           <span className="plano-label">Data de Vencimento:</span>
           <span className="plano-valor">{vencimentoAtual || "Não informado"}</span>
         </div>
 
         <div className="plano-total">
-            <span>Total:</span>
-            {desconto > 0 ? (
-              <div>
-                    <span style={{ textDecoration: 'line-through', color: '#e8e800', marginRight: '8px' }}>
-                      R$ {preco.toFixed(2).replace('.', ',')}
-                    </span>
-                  <span className="precoCadastro">
-                  R$ {(preco - desconto).toFixed(2).replace('.', ',')}                
-                </span>
-              </div>
-            ) : (
-              <span className="precoCadastro">
-                R$ {preco.toFixed(2).replace('.', ',')}
+          <span>Total:</span>
+          {desconto > 0 ? (
+            <div>
+              <span style={{ textDecoration: 'line-through', color: '#e8e800', marginRight: '8px' }}>
+                R$ {precoBase.toFixed(2).replace('.', ',')}
               </span>
-            )}
-          </div>
-
+              <span className="precoCadastro">
+                R$ {precoFinal.toFixed(2).replace('.', ',')}
+              </span>
+            </div>
+          ) : (
+            <span className="precoCadastro">
+              R$ {precoBase.toFixed(2).replace('.', ',')}
+            </span>
+          )}
+        </div>
       </div>
     </div>
   );
