@@ -131,22 +131,22 @@ const StepPlanoMobile = ({ nextStep, prevStep, updateFormData, formData, setDesc
   
 
   const handleValidarCupom = () => {
-    const code = formData.cupom;
-    const sel = cupons.find(c => c.CUPPOM === code);
+    const code = formData.cupom; // Já está em lowercase devido ao onChange do input
+    const sel = cupons.find(c => c.CUPPOM.toLowerCase() === code); // 🔥 Converte CUPPOM para lowercase para comparação
   
     if (sel) {
       updateFormData({
-        cupom: code,                // 🔥 garante que o cupom fica salvo no formData
+        cupom: code,                // 🔥 Garante que o cupom fica salvo no formData (já em lowercase)
         desconto: Number(sel.DESCONTO)
       });
-      setDesconto(Number(sel.DESCONTO)); // 🔥 atualiza o desconto global
+      setDesconto(Number(sel.DESCONTO)); // 🔥 Atualiza o desconto global
       setCupomValido(true);
     } else {
       updateFormData({
-        cupom: code,                // 🔥 salva o cupom mesmo se inválido
+        cupom: code,                // 🔥 Salva o cupom mesmo se inválido (já em lowercase)
         desconto: 0
       });
-      setDesconto(0); // 🔥 reseta o desconto global
+      setDesconto(0); // 🔥 Reseta o desconto global
       setCupomValido(false);
     }
   };
@@ -197,32 +197,31 @@ const StepPlanoMobile = ({ nextStep, prevStep, updateFormData, formData, setDesc
 
   {/* Cupom de desconto */}
   <label>Cupom de Desconto (opcional):</label>
-  <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
-    <input
-      type="text"
-      value={formData.cupom || ""}
-      onChange={(e) => updateFormData({ cupom: e.target.value })}
-      className="input-cupom"
-      disabled={cupomValido === true}
-    />
-    <button
-      type="button"
-      onClick={handleValidarCupom}
-      disabled={loadingCupons || !cupons.length || cupomValido === true}
-      style={{
-        padding: "5px 12px",
-        borderRadius: "6px",
-        backgroundColor: cupomValido === true ? "#38A169" : "#e2e8f0",
-        color: cupomValido === true ? "white" : "black",
-        border: cupomValido === true ? "1px solid #2f855a" : "1px solid #cbd5e0",
-        fontWeight: "bold",
-        cursor: loadingCupons ? "not-allowed" : "pointer",
-      }}
-    >
-      {loadingCupons ? "Carregando..." : cupomValido === true ? "Válido" : "Validar"}
-    </button>
-
-  </div>
+    <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+      <input
+        type="text"
+        value={formData.cupom || ""}
+        onChange={(e) => updateFormData({ cupom: e.target.value.toLowerCase() })} // 🔥 Converte para minúsculas
+        className="input-cupom"
+        disabled={cupomValido === true}
+      />
+      <button
+        type="button"
+        onClick={handleValidarCupom}
+        disabled={loadingCupons || !cupons.length || cupomValido === true}
+        style={{
+          padding: "5px 12px",
+          borderRadius: "6px",
+          backgroundColor: cupomValido === true ? "#38A169" : "#e2e8f0",
+          color: cupomValido === true ? "white" : "black",
+          border: cupomValido === true ? "1px solid #2f855a" : "1px solid #cbd5e0",
+          fontWeight: "bold",
+          cursor: loadingCupons ? "not-allowed" : "pointer",
+        }}
+      >
+        {loadingCupons ? "Carregando..." : cupomValido === true ? "Válido" : "Validar"}
+      </button>
+    </div>
 
   {/* Preço final */}
   <div className="precoM-planoM-containeMobile">
