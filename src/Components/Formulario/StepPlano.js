@@ -4,8 +4,9 @@ import PrecoPlano from "./PrecoPlano";
 import StreamingService from "../../Services/StreamingService";
 import VendedorService from "../../Services/VendedorService";
 import "../../Styles/Formulario/StepPlano.css";
+import CupomService from "../../Services/CupomService"; // ➕ importar o serviço de cupons
 
-const StepPlano = ({ nextStep, prevStep, updateFormData, formData, tipoDocumento }) => {
+const StepPlano = ({ nextStep, prevStep, updateFormData, formData, tipoDocumento, setDesconto }) => {
   const navigate = useNavigate();
   const [streamingOptions, setStreamingOptions] = useState([]);
   const [vendedores, setVendedores] = useState([]); // ✅ Estado para armazenar vendedores
@@ -15,7 +16,9 @@ const StepPlano = ({ nextStep, prevStep, updateFormData, formData, tipoDocumento
 
   const [dadosPlanoValidos, setDadosPlanoValidos] = useState(false);
   const isCNPJ = formData.tipoDocumento === "CNPJ";
-
+  
+  const [cupons, setCupons] = useState([]); // ➕ estado para cupons
+  const [cupomValido, setCupomValido] = useState(null); // null, true, false
 
   useEffect(() => {
     const planoPreenchido = !!formData.plano;
@@ -43,6 +46,7 @@ const StepPlano = ({ nextStep, prevStep, updateFormData, formData, tipoDocumento
 
     fetchStreamingOptions();
     fetchVendedores();
+    fetchCupons();
   }, [formData.plano]);
 
 
@@ -56,7 +60,39 @@ const StepPlano = ({ nextStep, prevStep, updateFormData, formData, tipoDocumento
     }
   }, [isCNPJ]);
   
-  
+    const fetchCupons = async () => { // ➕ buscar cupons
+        try {
+          const list = await CupomService.getCupons();
+           setCupons(list);
+         } catch (err) {
+           console.error("Erro ao buscar cupons:", err);
+         }
+       };
+
+       const handleValidarCupom = () => {
+        const code = formData.cupom;
+        const sel = cupons.find(c => c.CUPPOM === code);
+      
+        if (sel) {
+          updateFormData({
+            cupom: code,                // 🔥 garante que o cupom fica salvo no formData
+            desconto: Number(sel.DESCONTO)
+          });
+          setDesconto(Number(sel.DESCONTO)); // 🔥 atualiza o desconto global
+          setCupomValido(true);
+        } else {
+          updateFormData({
+            cupom: code,                // 🔥 salva o cupom mesmo se inválido
+            desconto: 0
+          });
+          setDesconto(0); // 🔥 reseta o desconto global
+          setCupomValido(false);
+        }
+      };
+      
+      
+      
+      
 
 
 
@@ -136,8 +172,39 @@ const StepPlano = ({ nextStep, prevStep, updateFormData, formData, tipoDocumento
           {isEditingPlano ? "Salvar" : "Alterar"}
         </span>
       </div>
+
+      
+      {/* Campo de Cupom */}
+      <label>Cupom de Desconto (opcional):</label>
+      <div style={{ display: 'flex', gap: '9px' }}>
+      <input
+            type="text"
+            value={formData.cupom || ""}
+            onChange={(e) => updateFormData({ cupom: e.target.value })}
+            className="input-cupom"
+            disabled={cupomValido === true}
+            style={{ backgroundColor: "white" }}  // 🔥 Força a visibilidade
+          />
+          <button
+            type="button"
+            onClick={handleValidarCupom}
+            style={{
+              padding: '5px 10px',
+              backgroundColor: cupomValido === true ? 'green' : '',
+              color: cupomValido === true ? 'white' : '',
+              border: cupomValido === true ? '1px solid green' : ''
+            }}
+          >
+            {cupomValido === true ? "Válido" : "Validar"}
+          </button>
+
+      </div>
+
+
+
       <div className="precoD-planoD-containeMobile">
-        <PrecoPlano plano={formData.plano} />
+        <PrecoPlano plano={formData.plano} desconto={formData.desconto} />
+
       </div>
 
       {!isCNPJ && (

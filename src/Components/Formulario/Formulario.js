@@ -19,9 +19,10 @@ const Formulario = ({
   setStreamingSelecionado,
   setVencimentoSelecionado,
   planoInicial = "Gold",
-  tipoDocumentoInicial = "CPF"
+  tipoDocumentoInicial = "CPF",
+  setDesconto   // 🔥 Adiciona aqui!
 }) => {
-
+  
   const [step, setStep] = useState(1);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // Detecta mobile automaticamente
 
@@ -89,7 +90,7 @@ const [formData, setFormData] = useState({
             {step === 1 && <StepDadosPessoaisMobile nextStep={nextStep} updateFormData={updateFormData} formData={formData} />}
             {step === 2 && <StepContatoMobile nextStep={nextStep} prevStep={prevStep} updateFormData={updateFormData} formData={formData} />}
             {step === 3 && <StepEnderecoMobile nextStep={nextStep} prevStep={prevStep} updateFormData={updateFormData} formData={formData} />}
-            {step === 4 && <StepPlanoMobile nextStep={nextStep} prevStep={prevStep} updateFormData={updateFormData} formData={formData} tipoDocumento={formData.tipoDocumento}/>}
+            {step === 4 && <StepPlanoMobile nextStep={nextStep} prevStep={prevStep} updateFormData={updateFormData} formData={formData} tipoDocumento={formData.tipoDocumento} setDesconto={setDesconto} />}
             {step === 5 && <StepConfirmacaoMobile prevStep={prevStep} formData={formData} setFormData={setFormData} />}
             </>
         ) : (
@@ -97,7 +98,7 @@ const [formData, setFormData] = useState({
             {step === 1 && <StepDadosPessoais nextStep={nextStep} updateFormData={updateFormData} formData={formData} />}
             {step === 2 && <StepContato nextStep={nextStep} prevStep={prevStep} updateFormData={updateFormData} formData={formData} />}
             {step === 3 && <StepEndereco nextStep={nextStep} prevStep={prevStep} updateFormData={updateFormData} formData={formData} />}
-            {step === 4 && <StepPlano nextStep={nextStep} prevStep={prevStep} updateFormData={updateFormData} formData={formData}  tipoDocumento={formData.tipoDocumento} />}
+            {step === 4 && <StepPlano nextStep={nextStep} prevStep={prevStep} updateFormData={updateFormData} formData={formData}  tipoDocumento={formData.tipoDocumento} setDesconto={setDesconto} />}
             {step === 5 && <StepConfirmacao prevStep={prevStep} formData={formData} setFormData={setFormData} />}
             </>
         )}

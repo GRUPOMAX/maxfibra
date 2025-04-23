@@ -5,18 +5,28 @@ import PrecoPlanoMobile from "./PrecoPlanoMobile";
 import "../../../Styles/Formulario/Mobile/StepPlanoMobile.css";
 import StreamingService from "../../../Services/StreamingService";
 import VendedorService from "../../../Services/VendedorService"; // Importa o service dos vendedores
+import CupomService from "../../../Services/CupomService"; // ➕ importar o serviço de cupons
 
-const StepPlanoMobile = ({ nextStep, prevStep, updateFormData, formData }) => {
+
+
+const StepPlanoMobile = ({ nextStep, prevStep, updateFormData, formData, setDesconto }) => {
   const navigate = useNavigate();
   const [streamingOptions, setStreamingOptions] = useState([]);
   const [isEditingPlano, setIsEditingPlano] = useState(false);
   const [vendedores, setVendedores] = useState([]); // ✅ Estado para vendedores
+  const [loadingCupons, setLoadingCupons] = useState(false);
+
+
+
   const [selectedPlano, setSelectedPlano] = useState(formData.plano);
   const [dadosPlanoValidos, setDadosPlanoValidos] = useState(false);
+
+
   const isCNPJ = formData.tipoDocumento === "CNPJ";
 
   
-
+  const [cupons, setCupons] = useState([]); // ➕ estado para cupons
+  const [cupomValido, setCupomValido] = useState(null); // null, true, false
 
 
 
@@ -54,6 +64,7 @@ const StepPlanoMobile = ({ nextStep, prevStep, updateFormData, formData }) => {
 
     fetchStreamingOptions();
     fetchVendedores(); // ✅ Busca os vendedores na montagem do componente
+    fetchCupons();
   }, [formData.plano]);
 
   const handleNext = () => {
@@ -105,98 +116,176 @@ const StepPlanoMobile = ({ nextStep, prevStep, updateFormData, formData }) => {
     }
   };
 
+
+  const fetchCupons = async () => {
+    try {
+      setLoadingCupons(true);
+      const list = await CupomService.getCupons();
+      setCupons(list);
+    } catch (err) {
+      console.error("Erro ao buscar cupons:", err);
+    } finally {
+      setLoadingCupons(false);
+    }
+  };
+  
+
+  const handleValidarCupom = () => {
+    const code = formData.cupom;
+    const sel = cupons.find(c => c.CUPPOM === code);
+  
+    if (sel) {
+      updateFormData({
+        cupom: code,                // 🔥 garante que o cupom fica salvo no formData
+        desconto: Number(sel.DESCONTO)
+      });
+      setDesconto(Number(sel.DESCONTO)); // 🔥 atualiza o desconto global
+      setCupomValido(true);
+    } else {
+      updateFormData({
+        cupom: code,                // 🔥 salva o cupom mesmo se inválido
+        desconto: 0
+      });
+      setDesconto(0); // 🔥 reseta o desconto global
+      setCupomValido(false);
+    }
+  };
+  
+
+
+
   return (
-    <div className="step-container-mobile">
-      <h2 className="titulo-confirmacao">Plano Escolhido</h2>
+<div className="step-container-mobile">
+  <h2 className="titulo-confirmacao">Plano Escolhido</h2>
 
-      <div className="plano-selecionado-wrapper">
-        <label>Plano Selecionado:</label>
-        <div className="plano-selecionado-container">
-        {isEditingPlano ? (
-          <select
-              value={selectedPlano}
-              onChange={(e) => setSelectedPlano(e.target.value)}
-              className="plano-edit-select"
-            >
-              {isCNPJ ? (
-                <>
-                  <option value="Big Company">Big Company</option>
-                  <option value="Medium Company">Medium Company</option>
-                  <option value="Startup Company">Startup Company</option>
-                </>
-              ) : (
-                <>
-                  <option value="Gold">Gold</option>
-                  <option value="Infinity">Infinity</option>
-                  <option value="Turbo">Turbo</option>
-                </>
-              )}
-            </select>
-
-        ) : (
-          <span className="plano-text">{formData.plano}</span>
-        )}
-
-          <span className="alterar-button" onClick={isEditingPlano ? handleSavePlano : handleEditPlano}>
-            {isEditingPlano ? "Salvar" : "Alterar"}
-          </span>
-        </div>
-      </div>
-
-      <div className="precoM-planoM-containeMobile">
-        <PrecoPlanoMobile plano={formData.plano} />
-      </div>
-
-
-      {!isCNPJ && (
-        <>
-          <label>Serviço Adicional:</label>
-          <select
-            value={formData.streaming}
-            onChange={(e) => updateFormData({ streaming: e.target.value })}
-          >
-            <option value="">Nenhum</option>
-            {streamingOptions.map((service, index) => (
-              <option key={index} value={service}>
-                {service}
-              </option>
-            ))}
-          </select>
-        </>
+  {/* Plano selecionado */}
+  <div className="plano-selecionado-wrapper">
+    <label>Plano Selecionado:</label>
+    <div className="plano-selecionado-container">
+      {isEditingPlano ? (
+        <select
+          value={selectedPlano}
+          onChange={(e) => setSelectedPlano(e.target.value)}
+          className="plano-edit-select"
+        >
+          {isCNPJ ? (
+            <>
+              <option value="Big Company">Big Company</option>
+              <option value="Medium Company">Medium Company</option>
+              <option value="Startup Company">Startup Company</option>
+            </>
+          ) : (
+            <>
+              <option value="Gold">Gold</option>
+              <option value="Infinity">Infinity</option>
+              <option value="Turbo">Turbo</option>
+            </>
+          )}
+        </select>
+      ) : (
+        <span className="plano-text">{formData.plano}</span>
       )}
 
-      <label>Data de Vencimento:</label>
-      <select className="custom-select" value={formData.vencimento} onChange={(e) => updateFormData({ vencimento: e.target.value })}>
-        <option value="">Selecione</option>
-        <option value="05">Dia 05</option>
-        <option value="10">Dia 10</option>
-        <option value="20">Dia 20</option>
-      </select>
+      <span
+        className="alterar-button"
+        onClick={isEditingPlano ? handleSavePlano : handleEditPlano}
+      >
+        {isEditingPlano ? "Salvar" : "Alterar"}
+      </span>
+    </div>
+  </div>
 
-      {/* ✅ Novo Select de Vendedor */}
-      <label>Selecione um Vendedor:</label>
-      <select value={formData.vendedor || ""} onChange={handleVendedorChange}>
-        <option value="">Escolha um vendedor</option>
-        {vendedores.map((vendedor, index) => (
-          <option key={index} value={vendedor.nome}>
-            {vendedor.nome}
+  {/* Cupom de desconto */}
+  <label>Cupom de Desconto (opcional):</label>
+  <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+    <input
+      type="text"
+      value={formData.cupom || ""}
+      onChange={(e) => updateFormData({ cupom: e.target.value })}
+      className="input-cupom"
+      disabled={cupomValido === true}
+    />
+    <button
+      type="button"
+      onClick={handleValidarCupom}
+      disabled={loadingCupons || !cupons.length || cupomValido === true}
+      style={{
+        padding: "5px 12px",
+        borderRadius: "6px",
+        backgroundColor: cupomValido === true ? "#38A169" : "#e2e8f0",
+        color: cupomValido === true ? "white" : "black",
+        border: cupomValido === true ? "1px solid #2f855a" : "1px solid #cbd5e0",
+        fontWeight: "bold",
+        cursor: loadingCupons ? "not-allowed" : "pointer",
+      }}
+    >
+      {loadingCupons ? "Carregando..." : cupomValido === true ? "Válido" : "Validar"}
+    </button>
+
+  </div>
+
+  {/* Preço final */}
+  <div className="precoM-planoM-containeMobile">
+    <PrecoPlanoMobile plano={formData.plano} desconto={formData.desconto} />
+  </div>
+
+  {/* Streaming */}
+  {!isCNPJ && (
+    <>
+      <label>Serviço Adicional:</label>
+      <select
+        value={formData.streaming}
+        onChange={(e) => updateFormData({ streaming: e.target.value })}
+      >
+        <option value="">Nenhum</option>
+        {streamingOptions.map((service, index) => (
+          <option key={index} value={service}>
+            {service}
           </option>
         ))}
       </select>
+    </>
+  )}
 
-      <div className="button-group-mobile">
-        <button className="voltar-mobile" onClick={prevStep}>
-          Voltar
-        </button>
-        <button
-            className={`proximo ${dadosPlanoValidos ? "btn-ativo" : "btn-desativado"}`}
-            onClick={handleNext}
-            disabled={!dadosPlanoValidos}
-          >
-            Próximo
-          </button>
-      </div>
-    </div>
+  {/* Vencimento */}
+  <label>Data de Vencimento:</label>
+  <select
+    className="custom-select"
+    value={formData.vencimento}
+    onChange={(e) => updateFormData({ vencimento: e.target.value })}
+  >
+    <option value="">Selecione</option>
+    <option value="05">Dia 05</option>
+    <option value="10">Dia 10</option>
+    <option value="20">Dia 20</option>
+  </select>
+
+  {/* Vendedor */}
+  <label>Selecione um Vendedor:</label>
+  <select value={formData.vendedor || ""} onChange={handleVendedorChange}>
+    <option value="">Escolha um vendedor</option>
+    {vendedores.map((vendedor, index) => (
+      <option key={index} value={vendedor.nome}>
+        {vendedor.nome}
+      </option>
+    ))}
+  </select>
+
+  {/* Botões */}
+  <div className="button-group-mobile">
+    <button className="voltar-mobile" onClick={prevStep}>
+      Voltar
+    </button>
+    <button
+      className={`proximo-mobile ${dadosPlanoValidos ? "btn-ativo" : "btn-desativado"}`}
+      onClick={handleNext}
+      disabled={!dadosPlanoValidos}
+    >
+      Próximo
+    </button>
+  </div>
+</div>
+
   );
 };
 

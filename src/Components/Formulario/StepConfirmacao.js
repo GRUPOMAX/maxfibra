@@ -40,9 +40,15 @@ const StepConfirmacao = ({ prevStep, formData, setFormData }) => {
       latitude: formData.latitude ? String(formData.latitude) : "",
       longitude: formData.longitude ? String(formData.longitude) : "",
       vendedorEmail: formData.vendedorEmail,
-      tipoDocumento: formData.tipoDocumento || "CPF", // ✅ Garante que será enviado
-      isEmpresa // ✅ Indica se é empresa ou não
+      tipoDocumento: formData.tipoDocumento || "CPF",
+      isEmpresa: formData.tipoDocumento === "CNPJ",
+      
+      // 🔥 Inclui cupom e desconto
+      cupom: formData.cupom || "Nenhum",
+      desconto: formData.desconto || 0
     };
+    
+    
   
     // Remove espaços extras de todos os campos string
     Object.keys(dadosCorrigidos).forEach((key) => {
@@ -168,13 +174,14 @@ const StepConfirmacao = ({ prevStep, formData, setFormData }) => {
         <div className={`confirmacao-card ${activeCard === "plano" ? "ativo" : ""}`} onClick={() => toggleCard("plano")}>
           <h3><FaCheckCircle /> Plano Escolhido</h3>
           {activeCard === "plano" && (
-            <div className="conteudo-card">
-              <p><strong>Plano:</strong> {formData.plano}</p>
-              <p><strong>Serviço Adicional:</strong> {formData.streaming || "Nenhum"}</p>
-              <p><strong>Data de Vencimento:</strong> {formData.vencimento}</p>
-              <p><strong>Vendedor:</strong> {formData.vendedor}</p>
-            </div>
-          )}
+                  <div className="conteudo-card">
+                    <p><strong>Plano:</strong> {formData.plano}</p>
+                    <p><strong>Serviço Adicional:</strong> {formData.streaming || "Nenhum"}</p>
+                    <p><strong>Data de Vencimento:</strong> {formData.vencimento}</p>
+                    <p><strong>Vendedor:</strong> {formData.vendedor}</p>
+                    <p><strong>Desconto aplicado:</strong> {formData.desconto ? `${formData.desconto}${formData.desconto < 100 ? "%" : "R$"}` : "Nenhum"}</p> {/* 🔥 AQUI */}
+                  </div>
+                )}
         </div>
       </div>
 

@@ -42,7 +42,12 @@ const StepConfirmacaoMobile = ({ prevStep, formData, setFormData  }) => {
       latitude: formData.latitude ? String(formData.latitude) : "",
       longitude: formData.longitude ? String(formData.longitude) : "",
       vendedorEmail: formData.vendedorEmail,
+      
+      // 🔥 Garante cupom e desconto no envio
+      cupom: formData.cupom || "Nenhum",
+      desconto: formData.desconto || 0,
     };
+    
   
     Object.keys(dadosCorrigidos).forEach((key) => {
       if (typeof dadosCorrigidos[key] === "string") {
@@ -179,13 +184,53 @@ const StepConfirmacaoMobile = ({ prevStep, formData, setFormData  }) => {
           {expandedSection === "plano" ? <FaChevronUp /> : <FaChevronDown />}
         </div>
         {expandedSection === "plano" && (
-          <div className="accordion-content">
-            <p><strong>Plano:</strong> {formData.plano}</p>
-            <p><strong>Serviço Adicional:</strong> {formData.streaming || "Nenhum"}</p>
-            <p><strong>Data de Vencimento:</strong> {formData.vencimento}</p>
-            <p><strong>Vendedor:</strong> {formData.vendedor}</p>
-          </div>
-        )}
+  <div className="accordion-content">
+    <p><strong>Plano:</strong> {formData.plano}</p>
+    <p><strong>Serviço Adicional:</strong> {formData.streaming || "Nenhum"}</p>
+    <p><strong>Data de Vencimento:</strong> {formData.vencimento}</p>
+    <p><strong>Vendedor:</strong> {formData.vendedor}</p>
+
+    {/* 🔥 Preço com desconto */}
+    {formData.plano && (
+      <>
+        {(() => {
+          const precosPlanos = {
+            "Gold": 129.90,
+            "Infinity": 169.90,
+            "Turbo": 99.90,
+            "Startup Company": 199.90,
+            "Medium Company": 299.90,
+            "Big Company": 399.90
+          };
+          const precoBase = precosPlanos[formData.plano] || 0;
+          const desconto = formData.desconto || 0;
+          const precoFinal = precoBase * (1 - desconto / 100);
+
+          return (
+            <p>
+              <strong>Valor:</strong>{" "}
+              {desconto > 0 ? (
+                <>
+                  <span style={{ textDecoration: "line-through", color: "#e8e800", marginRight: "8px" }}>
+                    R$ {precoBase.toFixed(2).replace(".", ",")}
+                  </span>
+                  <span style={{ fontWeight: "bold" }}>
+                    R$ {precoFinal.toFixed(2).replace(".", ",")}
+                  </span>
+                </>
+              ) : (
+                <span style={{ fontWeight: "bold" }}>
+                  R$ {precoBase.toFixed(2).replace(".", ",")}
+                </span>
+              )}
+            </p>
+          );
+        })()}
+      </>
+    )}
+  </div>
+)}
+
       </div>
 
       {/* BOTÕES */}

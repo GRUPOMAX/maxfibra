@@ -13,7 +13,8 @@ const FormularioMobile = ({
   setStreamingSelecionado,
   setVencimentoSelecionado,
   planoInicial = "Gold",
-  tipoDocumentoInicial = "CPF"
+  tipoDocumentoInicial = "CPF",
+  setDesconto   // 🔥 Adiciona aqui!
 }) => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
@@ -66,7 +67,7 @@ const FormularioMobile = ({
       {step === 1 && <StepDadosPessoaisMobile nextStep={nextStep} updateFormData={updateFormData} formData={formData} />}
       {step === 2 && <StepContatoMobile nextStep={nextStep} prevStep={prevStep} updateFormData={updateFormData} formData={formData} />}
       {step === 3 && <StepEnderecoMobile nextStep={nextStep} prevStep={prevStep} updateFormData={updateFormData} formData={formData} />}
-      {step === 4 && <StepPlanoMobile nextStep={nextStep} prevStep={prevStep} updateFormData={updateFormData} formData={formData} />}
+      {step === 4 && <StepPlanoMobile nextStep={nextStep} prevStep={prevStep} updateFormData={updateFormData} formData={formData} setDesconto={setDesconto}/>}
       {step === 5 && <StepConfirmacaoMobile prevStep={prevStep} formData={formData} setFormData={setFormData} />}
       </div>
   );

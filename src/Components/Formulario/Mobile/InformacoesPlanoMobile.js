@@ -3,12 +3,12 @@ import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import "../../../Styles/Formulario/Mobile/InformacoesPlano.css";
 
 const precosPlanos = {
-  "Gold": "R$ 129,90 / mês",
-  "Infinity": "R$ 169,90 / mês",
-  "Turbo": "R$ 99,90 / mês",
-  "Startup Company": "R$ 199,90 / mês",
-  "Medium Company": "R$ 299,90 / mês",
-  "Big Company": "R$ 399,90 / mês"
+  "Gold": 129.90,
+  "Infinity": 169.90,
+  "Turbo": 99.90,
+  "Startup Company": 199.90,
+  "Medium Company": 299.90,
+  "Big Company": 399.90
 };
 
 const velocidadesPlanos = {
@@ -20,22 +20,23 @@ const velocidadesPlanos = {
   "Big Company": "200 Mega"
 };
 
-
-const InformacoesPlanoMobile = ({ plano, streaming, vencimento, tipoDocumento }) => {
+const InformacoesPlanoMobile = ({ plano, streaming, vencimento, tipoDocumento, desconto = 0 }) => {
   const [planoAtual, setPlanoAtual] = useState(plano);
   const [streamingAtual, setStreamingAtual] = useState(streaming);
   const [vencimentoAtual, setVencimentoAtual] = useState(vencimento);
-  const [isExpanded, setIsExpanded] = useState(false); // Estado para controlar a expansão
+  const [isExpanded, setIsExpanded] = useState(false);
   const containerRef = useRef(null);
 
   useEffect(() => setPlanoAtual(plano), [plano]);
   useEffect(() => setStreamingAtual(streaming), [streaming]);
   useEffect(() => setVencimentoAtual(vencimento), [vencimento]);
 
-  const preco = precosPlanos[planoAtual] || "Não disponível";
+  const precoBase = precosPlanos[planoAtual] || 0;
+  const precoFinal = precoBase * (1 - desconto / 100);
+
   const velocidade = velocidadesPlanos[planoAtual] || "Não informado";
 
-  // Detecta clique fora do componente para fechar
+  // Fechar quando clicar fora
   useEffect(() => {
     function handleClickOutside(event) {
       if (containerRef.current && !containerRef.current.contains(event.target)) {
@@ -46,22 +47,18 @@ const InformacoesPlanoMobile = ({ plano, streaming, vencimento, tipoDocumento })
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Verifica se Serviço Adicional ou Data de Vencimento foi selecionado
   const hasNewData = streamingAtual !== "" || vencimentoAtual !== "";
 
   return (
-      <div ref={containerRef} className={`plano-container-mobile ${isExpanded ? "expandido" : ""}`}>
-
-      {/* Título com Toggle para Expandir/Fechar */}
+    <div ref={containerRef} className={`plano-container-mobile ${isExpanded ? "expandido" : ""}`}>
       <div className="titulo-toggle" onClick={() => setIsExpanded(!isExpanded)}>
         <h2 className="TituloInforPlano">
-          Seu Pedido  
-          {hasNewData && <span className="notificacao"></span>} {/* Bolinha piscante */}
+          Seu Pedido
+          {hasNewData && <span className="notificacao"></span>}
         </h2>
         {isExpanded ? <FaChevronUp className="icone-seta" /> : <FaChevronDown className="icone-seta" />}
       </div>
 
-      {/* Conteúdo que expande e retrai */}
       {isExpanded && (
         <div className="plano-detalhes-mobile">
           <div className="plano-item">
@@ -82,20 +79,33 @@ const InformacoesPlanoMobile = ({ plano, streaming, vencimento, tipoDocumento })
           </div>
 
           {tipoDocumento !== "CNPJ" && streamingAtual && streamingAtual !== "" && (
-          <div className="plano-item">
-            <span className="plano-label">Serviço Adicional:</span>
-            <span className="plano-valor">{streamingAtual}</span>
-          </div>
-        )}
+            <div className="plano-item">
+              <span className="plano-label">Serviço Adicional:</span>
+              <span className="plano-valor">{streamingAtual}</span>
+            </div>
+          )}
 
           <div className="plano-item">
             <span className="plano-label">Data de Vencimento:</span>
-            <span className="plano-valor">{vencimentoAtual}</span>
+            <span className="plano-valor">{vencimentoAtual || "Não informado"}</span>
           </div>
 
           <div className="plano-total mobile">
             <span className="precoB">Total:</span>
-            <span className="preco">{preco}</span>
+            {desconto > 0 ? (
+              <>
+                <span style={{ textDecoration: 'line-through', color: '#e8e800', marginRight: '8px' }}>
+                  R$ {precoBase.toFixed(2).replace('.', ',')}
+                </span>
+                <span className="preco">
+                  R$ {precoFinal.toFixed(2).replace('.', ',')}
+                </span>
+              </>
+            ) : (
+              <span className="preco">
+                R$ {precoBase.toFixed(2).replace('.', ',')}
+              </span>
+            )}
           </div>
         </div>
       )}

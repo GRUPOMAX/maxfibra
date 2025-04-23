@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import "../../Styles/Formulario/InformacoesPlano.css";
 
 const precosPlanos = {
-  "Gold": "R$ 129,90 / mês",
-  "Infinity": "R$ 169,90 / mês",
-  "Turbo": "R$ 99,90 / mês",
-  "Startup Company": "R$ 199,90 / mês",
-  "Medium Company": "R$ 299,90 / mês",
-  "Big Company": "R$ 399,90 / mês"
+  "Gold": 129.90,
+  "Infinity": 169.90,
+  "Turbo": 99.90,
+  "Startup Company": 199.90,
+  "Medium Company": 299.90,
+  "Big Company": 399.90
 };
 
 const velocidadesPlanos = {
@@ -20,10 +20,11 @@ const velocidadesPlanos = {
 };
 
 
-const InformacoesPlano = ({ plano, streaming, vencimento, tipoDocumento }) => {
+const InformacoesPlano = ({ plano, streaming, vencimento, tipoDocumento, desconto = 0 }) => {
   const [planoAtual, setPlanoAtual] = useState(plano);
   const [streamingAtual, setStreamingAtual] = useState(streaming);
   const [vencimentoAtual, setVencimentoAtual] = useState(vencimento);
+
 
 
   useEffect(() => {
@@ -76,9 +77,23 @@ const InformacoesPlano = ({ plano, streaming, vencimento, tipoDocumento }) => {
         </div>
 
         <div className="plano-total">
-          <span>Total:</span>
-          <span class="precoCadastro">{preco}</span>
-        </div>
+            <span>Total:</span>
+            {desconto > 0 ? (
+              <div>
+                    <span style={{ textDecoration: 'line-through', color: '#e8e800', marginRight: '8px' }}>
+                      R$ {preco.toFixed(2).replace('.', ',')}
+                    </span>
+                  <span className="precoCadastro">
+                  R$ {(preco - desconto).toFixed(2).replace('.', ',')}                
+                </span>
+              </div>
+            ) : (
+              <span className="precoCadastro">
+                R$ {preco.toFixed(2).replace('.', ',')}
+              </span>
+            )}
+          </div>
+
       </div>
     </div>
   );
