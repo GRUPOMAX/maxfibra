@@ -51,14 +51,14 @@ function BannerSlider() {
     setSelectedBanners(images);
   };
 
-  // Auto slide a cada 5 segundos
+  // Auto slide a cada 10 segundos
   useEffect(() => {
     if (selectedBanners.length > 1) {
       const interval = setInterval(() => {
         setCurrentIndex((prevIndex) =>
           prevIndex === selectedBanners.length - 1 ? 0 : prevIndex + 1
         );
-      }, 5000);
+      }, 10000);
       return () => clearInterval(interval);
     }
   }, [selectedBanners]);

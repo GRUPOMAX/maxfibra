@@ -3,7 +3,7 @@ const API_URL = "https://max.api.email.nexusnerds.com.br/enviar-formulario";
 const FormularioService = {
   enviarFormulario: async (formData) => {
     try {
-      console.log("📋 Dados recebidos no formData:", formData); // Log para depuração
+      //console.log("📋 Dados recebidos no formData:", formData); // Log para depuração
 
       const isEmpresa = formData.tipoDocumento === "CNPJ";
 
@@ -59,7 +59,7 @@ const FormularioService = {
         dadosCorrigidos.dataAberturaEmpresa = formData.dataAberturaEmpresa || "Não informada";
       }
 
-      console.log("📤 Dados corrigidos a serem enviados:", dadosCorrigidos); // Log para depuração
+      //console.log("📤 Dados corrigidos a serem enviados:", dadosCorrigidos); // Log para depuração
 
       const response = await fetch(API_URL, {
         method: "POST",

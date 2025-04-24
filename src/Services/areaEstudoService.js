@@ -5,7 +5,7 @@ export async function buscarAreasDeEstudo() {
     const response = await fetch(AREA_ESTUDO_URL);
     if (!response.ok) throw new Error('Erro ao buscar áreas');
     const data = await response.json();
-    console.log('🔎 Dados brutos recebidos:', data);
+    //console.log('🔎 Dados brutos recebidos:', data);
     return Array.isArray(data) ? data : [];
   } catch (error) {
     console.error('Erro ao carregar áreas de estudo:', error);
