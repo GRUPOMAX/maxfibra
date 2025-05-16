@@ -14,7 +14,7 @@ const precosPlanos = {
 const velocidadesPlanos = {
   "Gold": "600 Mega",
   "Infinity": "800 Mega",
-  "Turbo": "400 Mega",
+  "Turbo": "300 Mega",
   "Startup Company": "50 Mega",
   "Medium Company": "100 Mega",
   "Big Company": "200 Mega"
