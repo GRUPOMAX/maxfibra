@@ -35,7 +35,7 @@ const GooglePlacesService = {
       if (types.includes("route")) endereco.rua = component.long_name;
       if (types.includes("street_number")) endereco.numero = component.long_name;
       
-      // 🔥 Prioriza "sublocality_level_1" para bairro
+      // SEMPRE Prioriza "sublocality_level_1" para bairro 
       if (types.includes("sublocality_level_1")) endereco.bairro = component.long_name;
       else if (types.includes("sublocality") || types.includes("neighborhood")) endereco.bairro = component.long_name;
 

@@ -18,8 +18,9 @@ const StepEnderecoMobile = ({ nextStep, prevStep, updateFormData, formData }) =>
       formData.bairro?.trim() &&
       formData.cep?.trim() &&
       formData.rua?.trim() &&
-      formData.numero?.trim();
-  
+      formData.numero?.trim() &&
+      formData.tipoResidencia?.trim();
+      
     setEnderecoValido(Boolean(camposPreenchidos));
   }, [formData]);
 
@@ -189,6 +190,8 @@ const StepEnderecoMobile = ({ nextStep, prevStep, updateFormData, formData }) =>
             required
           />
         </div>
+
+
       </div>
           <label>Ponto de Referencia</label>
           <input
@@ -196,6 +199,19 @@ const StepEnderecoMobile = ({ nextStep, prevStep, updateFormData, formData }) =>
             value={formData.complemento || ""}
             onChange={(e) => updateFormData({ complemento: e.target.value })}
           />
+
+        <div>
+          <label>Tipo de Residência *</label>
+          <select
+            value={formData.tipoResidencia || ""}
+            onChange={(e) => updateFormData({ tipoResidencia: e.target.value })}
+            required
+          >
+            <option value="">Selecione</option>
+            <option value="própria">Própria</option>
+            <option value="alugada">Alugada</option>
+          </select>
+        </div>
 
 
       {/* 🔥 Campos ocultos para armazenar Latitude e Longitude */}

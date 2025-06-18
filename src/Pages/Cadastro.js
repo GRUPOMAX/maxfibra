@@ -39,7 +39,7 @@ const Cadastro = () => {
 
 
         
-        {/* Versão Desktop */}
+        {/* Controle de Versão Desktop */}
         {!isMobile && (
           <>
             <InformacoesPlano 
@@ -47,7 +47,7 @@ const Cadastro = () => {
               streaming={streamingSelecionado} 
               vencimento={vencimentoSelecionado} 
               tipoDocumento={tipoDocumentoInicial}
-              desconto={desconto}  // 🔥 AQUI!
+              desconto={desconto}  
             />
             <Formulario
               planoInicial={planoInicial}
@@ -60,7 +60,7 @@ const Cadastro = () => {
           </>
         )}
   
-        {/* Versão Mobile */}
+        {/* Controle de Versão Mobile */}
         {isMobile && (
           <div className="cadastro-mobile-wrapper">
             <InformacoesPlanoMobile 

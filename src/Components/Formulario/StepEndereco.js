@@ -17,7 +17,8 @@ useEffect(() => {
     formData.bairro?.trim() &&
     formData.cep?.trim() &&
     formData.rua?.trim() &&
-    formData.numero?.trim();
+    formData.numero?.trim() &&
+    formData.tipoResidencia?.trim(); 
 
   setEnderecoValido(Boolean(camposPreenchidos));
 }, [formData]);
@@ -150,6 +151,22 @@ useEffect(() => {
 
       <label>Rua *</label>
       <input type="text" value={formData.rua} onChange={(e) => updateFormData({ rua: e.target.value })} required />
+
+        <div className="linha">
+          <div className="campo">
+            <label>Tipo de Residência *</label>
+            <select
+              value={formData.tipoResidencia || ""}
+              onChange={(e) => updateFormData({ tipoResidencia: e.target.value })}
+              required
+            >
+              <option value="">Selecione</option>
+              <option value="própria">Própria</option>
+              <option value="alugada">Alugada</option>
+            </select>
+          </div>
+        </div>
+
 
       <div className="linha">
         <div className="campo">

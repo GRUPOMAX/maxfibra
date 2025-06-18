@@ -60,7 +60,7 @@ const StepConfirmacao = ({ prevStep, formData, setFormData }) => {
     const camposObrigatorios = [
       "nome", "cpf", "telefone1", "email",
       "cidade", "bairro", "rua", "cep",
-      "numero", "vendedor", "vendedorEmail"
+      "numero", "vendedor", "vendedorEmail", "tipoResidencia"
     ];
   
     const camposFaltando = camposObrigatorios.filter((campo) => !dadosCorrigidos[campo]);
@@ -150,6 +150,7 @@ const StepConfirmacao = ({ prevStep, formData, setFormData }) => {
               <p><strong>CEP:</strong> {formData.cep}</p>
               <p><strong>Bairro:</strong> {formData.bairro}</p>
               <p><strong>Rua:</strong> {formData.rua}, Nº {formData.numero}</p>
+              <p><strong>Residencia:</strong> Casa {formData.tipoResidencia}</p>
               <p><strong>Pto Referencia:</strong> {formData.complemento || "Não informado"}</p>
               
               {/* 🔥 Adiciona link para Google Maps caso latitude e longitude existam */}

@@ -157,6 +157,7 @@ const StepConfirmacaoMobile = ({ prevStep, formData, setFormData  }) => {
             <p><strong>Cidade:</strong> {formData.cidade}</p>
             <p><strong>Bairro:</strong> {formData.bairro}</p>
             <p><strong>Endereço:</strong> {formData.bairro}, {formData.numero} - {formData.cep}</p>
+            <p><strong>Residencia:</strong> Casa {formData.tipoResidencia}</p>
             <p><strong>Pto Referencia:</strong> {formData.complemento || "Não informado"}</p>
 
             {/* 🔥 Adiciona link para Google Maps caso latitude e longitude existam */}

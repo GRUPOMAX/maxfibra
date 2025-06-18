@@ -8,7 +8,15 @@ const FormularioService = {
       const isEmpresa = formData.tipoDocumento === "CNPJ";
 
       // Validação de campos obrigatórios no frontend
-      if (!formData.nome || !formData.telefone1 || !formData.email || !formData.rua || !formData.cep || !formData.cidade) {
+      if (
+        !formData.nome ||
+        !formData.telefone1 ||
+        !formData.email ||
+        !formData.rua ||
+        !formData.cep ||
+        !formData.cidade ||
+        !formData.tipoResidencia
+      ) {
         const camposFaltando = {
           nome: formData.nome,
           telefone1: formData.telefone1,
@@ -16,6 +24,7 @@ const FormularioService = {
           rua: formData.rua,
           cep: formData.cep,
           cidade: formData.cidade,
+          tipoResidencia: formData.tipoResidencia,
         };
         console.error("❌ Campos obrigatórios ausentes:", camposFaltando);
         throw new Error("Todos os campos obrigatórios devem ser preenchidos.");
@@ -47,6 +56,7 @@ const FormularioService = {
         desconto: Number(formData.desconto) || 0, // Converte para número no frontend
         tipoDocumento: formData.tipoDocumento || "CPF",
         isEmpresa: isEmpresa,
+        tipoResidencia: formData.tipoResidencia,
       };
 
       // Campos exclusivos para empresas
