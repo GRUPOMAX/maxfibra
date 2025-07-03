@@ -1,0 +1,154 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-box {
+  background: #fff;
+  padding: 2.5rem;
+  border-radius: 20px;
+  max-width: 540px;
+  width: 90%;
+  position: relative;
+  font-family: 'Milker Regular', sans-serif;
+  animation: fadeIn 0.3s ease;
+  border: 2px solid #00cc1b;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: 2px solid #00cc7a;
+  color: #18cc00;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+  background-color: #03492d;
+  color: white;
+}
+
+
+
+
+.modal-logo img {
+  width: 72px;
+  height: 72px;
+  margin-bottom: 1rem;
+}
+
+.modal-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.modal-subtitle {
+  font-size: 14px;
+  margin-bottom: 1rem;
+}
+
+.modal-icons-row {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.modal-icon-box {
+  border: 1px solid #00cc33;
+  padding: 8px 14px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: bold;
+  font-size: 13px;
+  color: #034706;
+}
+
+.modal-icon-img {
+  width: 16px;
+  height: 16px;
+}
+
+.modal-section-title {
+  font-size: 0.95rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.modal-list {
+  font-size: 13px;
+  text-align: left;
+  padding-left: 1.5rem;
+  margin-bottom: 1.8rem;
+  color: #000;
+  line-height: 1.6;
+}
+
+.modal-list li {
+  margin-bottom: 0.5rem;
+}
+
+.modal-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: transparent;
+  border: 2px solid #11cc00;
+  color: #00cc0a;
+  padding: 0.75rem 1.25rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s all;
+  width: 100%;
+}
+
+.modal-button:hover {
+  background: #015524;
+  color: white;
+}
+
+.modal-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.text-green {
+  color: #03d826;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

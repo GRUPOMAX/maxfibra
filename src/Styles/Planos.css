@@ -1,6 +1,14 @@
 
 @import './PlanosResponsive.css';
 
+.gamer-click {
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.gamer-click:hover {
+  color: #00d400;
+}
 
 
 

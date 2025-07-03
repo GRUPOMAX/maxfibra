@@ -48,6 +48,16 @@ function Sidebar({ isOpen, toggleSidebar }) {
             Trabalhe Conosco
           </Link>
         </li>
+
+        <li>
+            <a
+              href="https://discord.oficial.maxfibraltda.com.br/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Discord Oficial
+            </a>
+          </li>
       </ul>
 
       <a

@@ -16,6 +16,16 @@ function Header() {
           <li><Link to="/cadastro">Cadastre-se</Link></li>
           <li><Link to="/empresas">Empresas</Link></li>
           <li><Link to="/trabalhe-conosco">Trabalhe Conosco</Link></li>
+          <li>
+            <a
+              href="https://discord.oficial.maxfibraltda.com.br/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Discord Oficial
+            </a>
+          </li>
+
         </ul>
       </nav>
       <Button text="Acessar Central" href="https://ixc.maxfibraltda.com.br/" />
