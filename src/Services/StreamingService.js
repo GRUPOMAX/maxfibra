@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = process.env.REACT_APP_NOCODB_URL + "/api/v2/tables/mn66gzzpfwqa97z/records";
+const API_URL = process.env.REACT_APP_NOCODB_URL + "/api/v2/tables/mk6u4y0t8bbss7y/records";
 const API_TOKEN = process.env.REACT_APP_NOCODB_TOKEN;
 
 const StreamingService = {

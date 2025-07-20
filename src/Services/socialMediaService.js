@@ -1,6 +1,6 @@
 const API_URL = process.env.REACT_APP_NOCODB_URL;
 const API_TOKEN = process.env.REACT_APP_NOCODB_TOKEN;
-const TABLE_ID = "manbodhlpn6mtb9";
+const TABLE_ID = "mj60jnmo50y5djq";
 
 export const fetchSocialLinks = async () => {
   try {

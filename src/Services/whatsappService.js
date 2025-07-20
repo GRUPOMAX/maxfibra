@@ -6,7 +6,7 @@ const API_TOKEN = process.env.REACT_APP_NOCODB_TOKEN;
  */
 export const fetchWhatsAppNumber = async () => {
     try {
-        const response = await fetch(`${API_URL}/api/v2/tables/m757yxrtm9d5rf8/records`, {
+        const response = await fetch(`${API_URL}/api/v2/tables/mffas5ywmeamxoo/records`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

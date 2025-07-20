@@ -7,7 +7,7 @@ const API_TOKEN = process.env.REACT_APP_NOCODB_TOKEN;
 const getDynamicPhrase = async () => {
   try {
     const response = await axios.get(
-      `${API_URL}/api/v2/tables/mb1tfv41lt5n5zx/records`,
+      `${API_URL}/api/v2/tables/msn8avbbru0z3er/records`,
       {
         headers: {
           'xc-token': API_TOKEN,

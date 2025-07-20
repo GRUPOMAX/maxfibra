@@ -6,7 +6,7 @@ const API_TOKEN = process.env.REACT_APP_NOCODB_TOKEN;
 const getDownloadLinks = async () => {
   try {
     const response = await axios.get(
-      `${API_URL}/api/v2/tables/mmm62g98qg6iuj2/records`,
+      `${API_URL}/api/v2/tables/mc1a7c2dt0u4f6r/records`,
       {
         headers: {
           "xc-token": API_TOKEN,

@@ -4,7 +4,7 @@ const API_URL = process.env.REACT_APP_NOCODB_URL;
 const API_TOKEN = process.env.REACT_APP_NOCODB_TOKEN;
 
 // ID da tabela com os planos empresariais
-const TABLE_ID = 'ml20jx71svk63h5';
+const TABLE_ID = 'm4k1kwxh1ufq0pu';
 
 export const buscarPlanosEmpresariais = async () => {
   try {

@@ -6,7 +6,7 @@ const API_TOKEN = process.env.REACT_APP_NOCODB_TOKEN;
 const VendedorService = {
   getVendedores: async () => {
     try {
-      const response = await axios.get(`${API_URL}/api/v2/tables/m3cqlvi5625ahqs/records`, {
+      const response = await axios.get(`${API_URL}/api/v2/tables/mo4wnahtbw2mog2/records`, {
         headers: {
           "xc-token": API_TOKEN,
           "Content-Type": "application/json",

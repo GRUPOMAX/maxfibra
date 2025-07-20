@@ -3,11 +3,11 @@ import axios from 'axios';
 const API_URL = process.env.REACT_APP_NOCODB_URL;
 const API_TOKEN = process.env.REACT_APP_NOCODB_TOKEN;
 
-// ID da tabela: m5vqqojpxs1hv80
+// ID da tabela: m55ck3esd1unqqd
 export const buscarBannersEmpresariais = async () => {
   try {
     const response = await axios.get(
-      `${API_URL}/api/v2/tables/m5vqqojpxs1hv80/records`,
+      `${API_URL}/api/v2/tables/m55ck3esd1unqqd/records`,
       {
         headers: {
           'xc-token': API_TOKEN,

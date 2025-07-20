@@ -5,7 +5,7 @@ const API_TOKEN = process.env.REACT_APP_NOCODB_TOKEN;
 
 const getServicosAdicionais = async () => {
   try {
-    const response = await axios.get(`${API_URL}/api/v2/tables/m6y3n25batwj4kk/records`, {
+    const response = await axios.get(`${API_URL}/api/v2/tables/mv8txmhvciv3mhr/records`, {
       headers: {
         'xc-token': API_TOKEN,
         'Content-Type': 'application/json',

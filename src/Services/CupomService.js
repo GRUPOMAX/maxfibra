@@ -6,7 +6,7 @@ const TOKEN = process.env.REACT_APP_NOCODB_TOKEN;  // t1agRg8TzKX_D1kr9HEiB8A1dY
 export default {
   getCupons: async () => {
     const res = await axios.get(
-      `${API}/api/v2/tables/mskrcs3wzgsp5sr/records`,
+      `${API}/api/v2/tables/mwmyrsufprsnb4f/records`,
       {
         headers: { 'xc-token': TOKEN },
         params: {

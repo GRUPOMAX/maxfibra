@@ -6,7 +6,7 @@ const API_TOKEN = process.env.REACT_APP_NOCODB_TOKEN; // Token do .env
 const getDuvidasFrequentes = async () => {
   try {
     const response = await axios.get(
-      `${API_URL}/api/v2/tables/m298pldi50qz0vg/records`, // Endpoint da tabela "Duvidas Frequentes"
+      `${API_URL}/api/v2/tables/mwqhz56q4lrymb6/records`, // Endpoint da tabela "Duvidas Frequentes"
       {
         headers: {
           "xc-token": API_TOKEN,
