@@ -1,0 +1,71 @@
+[
+  {
+    "Plano": "Infinity",
+    "Serviços": [
+      {
+        "nome": "HBO MAX",
+        "Foto": [
+          {
+            "url": "https://s3.nexusnerds.com.br/maxfibra/SITE%20-%20MAX%20FIBRA/ASSETS%20ADICIONAIS/IMAGENS%20SITE/MAX.png"
+          }
+        ]
+      },
+      {
+        "nome": "Globo Play + Sky",
+        "Foto": [
+          {
+            "url": "https://s3.nexusnerds.com.br/maxfibra/SITE%20-%20MAX%20FIBRA/ASSETS%20ADICIONAIS/IMAGENS%20SITE/Sky-GLOBO.jpg"
+          }
+        ]
+      },
+      {
+        "nome": "NBA",
+        "Foto": [
+          {
+            "url": "https://s3.nexusnerds.com.br/maxfibra/SITE%20-%20MAX%20FIBRA/ASSETS%20ADICIONAIS/IMAGENS%20SITE/NBA.png"
+          }
+        ]
+      },
+      {
+        "nome": "Estuda+",
+        "Foto": [
+          {
+            "url": "https://s3.nexusnerds.com.br/maxfibra/SITE%20-%20MAX%20FIBRA/ASSETS%20ADICIONAIS/IMAGENS%20SITE/Estuda-.png"
+          }
+        ]
+      },
+      {
+        "nome": "Programa de Antivirus",
+        "Foto": [
+          {
+            "url": "https://s3.nexusnerds.com.br/maxfibra/SITE%20-%20MAX%20FIBRA/ASSETS%20ADICIONAIS/IMAGENS%20SITE/KASPERSKY.png"
+          }
+        ]
+      },
+      {
+        "nome": "O-Jornalista",
+        "Foto": [
+          {
+            "url": "https://s3.nexusnerds.com.br/maxfibra/SITE%20-%20MAX%20FIBRA/ASSETS%20ADICIONAIS/IMAGENS%20SITE/O-Jornalista.png"
+          }
+        ]
+      },
+      {
+        "nome": "Dockway",
+        "Foto": [
+          {
+            "url": "https://s3.nexusnerds.com.br/maxfibra/SITE%20-%20MAX%20FIBRA/ASSETS%20ADICIONAIS/IMAGENS%20SITE/DocWay.png"
+          }
+        ]
+      },
+      {
+        "nome": "Queima Diaria",
+        "Foto": [
+          {
+            "url": "https://s3.nexusnerds.com.br/maxfibra/SITE%20-%20MAX%20FIBRA/ASSETS%20ADICIONAIS/IMAGENS%20SITE/Queima-Diaria.png"
+          }
+        ]
+      }
+    ]
+  }
+]
